@@ -1,0 +1,1707 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>去除本人已发表文献报告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="toTop" content="true">
+    <meta content="0" http-equiv="Expires"/>
+    <meta content="no-cache" http-equiv="Pragma"/>
+    <meta content="no-cache" http-equiv="Cache-Control"/>
+    <meta content="no-cache" http-equiv="Cache"/>
+    <link href="css_v2/index_2018051810.css" type="text/css" rel="stylesheet"/>
+    <script src="js_v2/jquery1.42.min.js" type="text/javascript"></script>
+    <script src="js_v2/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script src="js_v2/esl.js" type="text/javascript"></script>
+        <script src="js_v2/toTop.js" type="text/javascript"></script>
+
+        <script>
+            $(function(){
+                var script = document.createElement('script');
+                script.src = "js_v2/report.js";
+                // 添加onload事件处理
+                script.onload = function() {
+                    var script2 = document.createElement('script');
+                    script2.src = "js_v2/aigc_text_check.js";
+                    document.body.appendChild(script2);
+                };
+                script.onerror = function() {
+                    $(".top-nav__tab-li-icon-lock,.top-nav__tab-li-lock").css({
+                        display: "inline-block",
+                    });
+                    $(".top-nav").addClass("top-nav-lock");
+                };
+                document.body.appendChild(script);
+            })
+        </script>
+
+
+    <!--解决IE 6不支持png格式的代码-->
+    <!--[if IE 6]>-->
+    <script src="js_v2/png.js" type="text/javascript"></script>
+    <script>
+        var linkUrl = 'https://www.paperyy.com/paper_service.aspx';
+        var domainUrl = linkUrl.substring(linkUrl.indexOf("//") + 2, linkUrl.indexOf("/", linkUrl.indexOf("//") + 2));
+        DD_belatedPNG.fix('.pngfix');
+
+        //正则表达式，获取地址中的参数
+        var reg = new RegExp("(^|&)data=([^&]*)(&|$)", "i");
+
+        function getQueryString() {
+            var search = location.search;
+            var param = search.substr(1).match(reg);
+            if (param == null) return;
+            var encode = param[2];
+            var decode = decodeURIComponent(encode);
+            var data = JSON.parse(decode);
+            var urlMap = data.UrlMap;
+            $(".repTabLink_0426 a").each(function () {
+                var key = $(this).attr("href");
+                if(urlMap[key]) {
+                    var url;
+                    if (urlMap[key].indexOf("?") > -1) {
+                        url = urlMap[key] + "&data=" + encode;
+                    } else {
+                        url = urlMap[key] + "?data=" + encode;
+                    }
+                    $(this).attr("href", url);
+                }
+            });
+            $("#navigation").show();
+        }
+        $(document).ready(function () {
+            getQueryString();
+        });
+
+        var reportServiceUrl= "https://aliyun.gateway.laibokeji.com/lb-report-service";
+        var reportServiceKey = "KEJND0CJ";
+        function getBuried(eventId,eventType,page){
+            var buriedData = {
+                appkey: reportServiceKey,
+                eventId:  eventId,
+                eventType: eventType,
+                page:  page,
+                platform: "PC",
+                userId: 0
+            }
+            try{
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    async: true,
+                    contentType : 'application/json',
+                    data:JSON.stringify(buriedData),
+                    url: reportServiceUrl + "/api/selling-points/add?t=" + new Date().getTime(),
+                    error: function(XmlHttpRequest, textStatus, errorThrown) {},
+                    success: function(res) {}
+                });
+            }catch(err){}
+        }
+    </script>
+    <style>
+        /**
+        * 非至尊版报告检测报告结果样式
+        *
+        */
+
+        .ReportResult_Con1_new {
+            width: 100%;
+            height: 40px;
+        }
+
+        .ReportResult_Con1_new ul li{
+            display: inline-block;
+            margin-right: 30px;
+            height: 34px;
+        }
+        .ReportResult_Con1_new .result-word {
+            position: relative;
+        }
+
+        .ReportResult_Con1_new .result-word .text-up {
+            position: absolute;
+            width: 120px;
+        }
+
+        .ReportResult_Con1_new .result-word .text-down {
+            position: absolute;
+            top: 25px;
+            width: 120px;
+            left: 14px;
+        }
+
+        .ReportResult_Con1_new ul li:nth-child(1){
+            font-weight: 800;
+        }
+
+        .ReportResult_Con1_new ul li:nth-child(3){
+            margin-right: 40px;
+        }
+
+        .color-red {
+            color: #ef001c
+        }
+        .TextInfoContent_right .green{
+            color: #6A902E;
+            font-weight: bold;
+        }
+
+        .TextInfoContent_right .gray{
+            color: #C0C0C0;
+        }
+        .wrapper_con{
+            position: relative;
+        }
+        .zjk-tips{
+            width: 210px;
+            background: #fff;
+            position: absolute;
+            right: -240px;
+            top: 207px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .zjk-tips::after{
+            content: '';
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: #fff;
+            position: absolute;
+            left: -19px;
+            top: 23px;
+        }
+        .cnki_forecast {
+            bottom : 7px
+        }
+        .seal {
+            right: 7px;
+        }
+        .ReportResult_Con1 dl dd.qu4 {
+            background-position: -300px -450px;
+        }
+        .ReportResult_Con1 dl dd.qu2 {
+            width: 224px;
+        }
+        .ReportResult_Con1 dl dd {
+            display: block;
+            float: left;
+            font-size: 14px;
+            background: url(images_v2/li.gif?v20210924) no-repeat;
+            width: 184px;
+            padding-left: 23px;
+            margin-right: 15px;
+            margin-left: 0px;
+            height: 24px;
+            line-height: 24px;
+        }
+        .repTabLink_0426 li {
+            width: 192px;
+            margin-right: 0px;
+        }
+
+        /* 论文检查样式 */
+        .check-com-box {
+            background: #ffffff;
+            box-shadow: 0px 4px 18px 1px rgba(0, 0, 0, 0.1);
+            border-radius: 6px 6px 6px 6px;
+            border: 1px solid #e6e8ea;
+            width: 360px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item {
+            cursor: pointer;
+            height: 52px;
+            border-bottom: 1px solid #f0f1f2;
+            margin: 0px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .check-com-box .check-com-item-box:first-child .check-com-item-row {
+            display: block;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item .check-item-title {
+            color: #3f4654;
+            font-weight: 700;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item .check-item-right .check-issue-number {
+            width: 39px;
+            display: inline-block;
+            background: #fdeddf;
+            border-radius: 34px 34px 34px 34px;
+            text-align: center;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item .check-item-right .arrows {
+            color: #a5a9b8;
+            margin: 0 8px 0 15px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item .check-item-right .check-com-item-arrows {
+            margin: 0 8px 0 15px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row {
+            display: none;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box {
+            padding: 24px 24px 0 18px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list {
+            max-height: 500px;
+            overflow: auto;
+            border-bottom: 1px solid #f5f6f7;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-list-item-box-title {
+            width: 39px;
+            color: #3f4654;
+            font-size: 13px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-list-item-box-title .structure-label {
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+            border-radius: 4px 4px 4px 4px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-item-label-box {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-item-label-box .structure-item-label {
+            cursor: pointer;
+            width: 77px;
+            height: 28px;
+            background: #FFEAEA;
+            border-radius: 4px 4px 4px 4px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            line-height: 28px;
+            display: inline-block;
+            color: #FD6F70;
+            border: 1px solid rgba(0, 0, 0, 0);
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-item-label-box .structure-item-label:hover {
+            border-color: #FD6F70;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-item-label-box .suggest-text {
+            margin-bottom: 12px;
+            margin-left: 8px;
+            color: #656b76;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .structure-list-item-box .structure-item-label-box .suggest-text .problem-nuber {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-row .check-row-box .structure-list .column {
+            flex-direction: column;
+        }
+
+        .footer-popup-box .check-com-box-close {
+            position: absolute;
+            right: 0;
+            top: -30px;
+            cursor: pointer;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-box-oneOn {
+            background: rgb(247, 248, 249);
+            border-radius: 6px 6px 0px 0px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-box-oneOn .check-com-item-arrows {
+            transform: rotate(-90deg);
+        }
+
+        .check-com-box .check-com-item-box .check-com-item-box-one {
+            border-radius: 6px 6px 0px 0px;
+        }
+
+        .check-com-box .check-com-item-box .check-com-item .check-item-right .check-issue-numberNo {
+            margin-right: 42px;
+        }
+
+        /* 底部弹窗纠错 */
+        .footer-popup-box {
+            position: fixed;
+            bottom: 10%;
+            right: 10px;
+            z-index: 3;
+        }
+
+        .check-correct-box {
+            background: #FFFFFF;
+            box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.16);
+            border-radius: 6px;
+            margin-bottom: 3px;
+            width: 360px;
+        }
+
+        .check-correct-box-title {
+            height: 44px;
+            background: #F7F8F9;
+            border-radius: 6px 6px 0px 0px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #3F4654;
+            padding-left: 20px;
+            line-height: 44px;
+        }
+
+        .check-correct-box-li {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #F0F1F2;
+            margin: 0 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .check-correct-box-li-num {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #FFFFFF;
+            border: 1px solid #D8DADD;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 12px;
+            color: #9EA2A9;
+        }
+
+        .check-correct-box-li-old {
+            color: #5462CC;
+        }
+
+        .check-correct-box-li-new {
+            display: inline-block;
+            padding: 0px 10px;
+            background: #EAECF9;
+            border-radius: 4px 4px 4px 4px;
+            color: #5462CC;
+            font-size: 13px;
+            height: 26px;
+            line-height: 26px;
+            margin-left: 8px;
+        }
+
+        .check-correct-box-liAll {
+            height: 44px;
+            line-height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #3F4654;
+            padding: 0 20px 0 45px;
+            cursor: pointer;
+        }
+
+        .check-correct-box-liAll-num {
+            padding: 0 8px;
+            height: 20px;
+            background: #EAECF9;
+            border-radius: 34px 34px 34px 34px;
+            text-align: center;
+            line-height: 19px;
+            font-size: 12px;
+            color: #5462CC;
+            display: inline-block;
+            margin: 0 3px;
+        }
+
+        .check-correct-box-lists {
+            position: relative;
+        }
+
+        .check-correct-box-lists-pup {
+            width: 137px;
+            height: 28px;
+            background: #FFFFFF;
+            box-shadow: 0px 4px 12px 1px rgba(0, 0, 0, 0.12);
+            border-radius: 4px 4px 4px 4px;
+            text-align: center;
+            line-height: 28px;
+            font-size: 12px;
+            color: #3F4654;
+            position: absolute;
+            top: -30px;
+            right: 50px;
+            display: none;
+        }
+
+        .check-correct-box-li:hover .check-correct-box-lists-pup {
+            display: block;
+        }
+
+        .check-correct-box-lists-pup img {
+            margin-right: 3px;
+            margin-top: -3px;
+        }
+
+        .check-correct-box-lists-pup:before {
+            content: '';
+            display: block;
+            border-left: 6px solid transparent;
+            border-top: 9px solid #fff;
+            border-right: 6px solid transparent;
+            position: absolute;
+            bottom: -8px;
+            left: 11px;
+            filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.12));
+        }
+
+        .footer-popup-box-on {
+            bottom: 56%;
+        }
+
+        /* 底部在线改重弹窗 */
+        .check-online-tips-box{
+            width: 154px;
+            background: #FFFFFF;
+            box-shadow: 0px 4px 18px 1px rgb(0 0 0 / 16%);
+            border-radius: 6px 6px 6px 6px;
+            position: fixed;
+            bottom: 7%;
+            left: 12%;
+            z-index: 9999;
+            padding: 20px 20px;
+        }
+        .check-online-tips-box-timg{
+            position: absolute;
+            top: -43px;
+            left: -16px;
+        }
+        .check-online-tips-box-close{
+            width: 13px;
+            height: 13px;
+            cursor: pointer;
+            position: absolute;
+            right: 14px;
+            top: 14px;
+        }
+        .check-online-tips-box-close img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .check-online-tips-xbt{
+            font-size: 15px;
+            color: #3F4654;
+        }
+        .check-online-tips-xbt span{
+            border-bottom: 8px solid #DAE4FD;
+        }
+        .check-online-tips-xbt span em{
+            font-size: 15px;
+            color: #3F4654;
+            font-weight: bold;
+            font-style: initial;
+            position: relative;
+            top: 6px;
+        }
+        .check-online-tips-txt{
+            font-size: 13px;
+            color: #3F4654;
+            line-height: 20px;
+            margin-top: 15px;
+        }
+        .check-online-tips-btn{
+            width: 114px;
+            height: 30px;
+            background: #467AF2;
+            border-radius: 6px 6px 6px 6px;
+            margin: 0 auto;
+            line-height: 30px;
+            font-size: 13px;
+            color: #FFFFFF;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .check-online-tips-btn a{
+            font-size: 13px;
+            color: #FFFFFF;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 在线修改样式 */
+        .check-online-text-btn {
+            color: #467AF2;
+            font-size: 12px;
+            cursor: pointer;
+            float: right;
+            margin-right: 5px;
+            display: none;
+        }
+
+        .check-online-text-btn a {
+            color: #467AF2;
+            font-size: 12px;
+            display: block;
+        }
+
+        .check-online-text-btn span {
+            font-weight: normal;
+            text-decoration: underline;
+        }
+
+        .Origin_text:hover .check-online-text-btn {
+            display: inline;
+        }
+
+        @media screen and (max-width: 1880px) {
+            .check-online-tips-box{
+                left: 10%;
+            }
+        }
+        @media screen and (max-width: 1790px) {
+            .check-online-tips-box{
+                left: 8%;
+            }
+        }
+        @media screen and (max-width: 1700px) {
+            .check-online-tips-box{
+                left: 6%;
+            }
+        }
+        @media screen and (max-width: 1620px) {
+            .check-online-tips-box{
+                left: 4%;
+            }
+        }
+        @media screen and (max-width: 1560px) {
+            .check-online-tips-box{
+                left: 2%;
+            }
+        }
+        @media screen and (max-width: 1490px) {
+            .check-online-tips-box{
+                left: 1.5%;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 底部在线改重弹窗 -->
+<!-- 底部在线改重弹窗 end-->
+
+<!--底部弹框-->
+    <!-- <div class="footer-popup-box">
+        <script>
+            function checkBoxClose() {
+                $(".footer-popup-box").hide();
+            }
+        </script>
+    </div> -->
+
+<!--topbg-->
+<a name="top"></a>
+<div class="topbg">
+    <div class="top">
+	<div style="top: 30px;position: absolute;left: 50px;z-index: 66;width: 108px;
+        height: 32px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 6px 6px 6px 6px;
+        border: 1px solid rgba(255,255,255,0.3);
+        text-align: center;
+        line-height: 32px;
+    ">
+        <a class="left_top_btn" href="https://www.paperyy.com/member_new/thesis/post.aspx" target="_blank"
+        style="color: #fff;font-size: 13px;display: block;width: 100%;height: 100%;">
+            <img src="images_v2/new_img/left_top_icon.png" style="margin-right: 5px;position: relative;top: -2px;">
+            免费查重
+        </a>
+    </div>
+	<!-- <div style="top: 30px;position: absolute;left: 180px;z-index: 66;">
+            <a class="left_top_btn" href="https://www.paperyy.com/online_check/prepare_check/5-06e0221e-6923-4a5c-92df-263960015767" target="_blank">
+                <img src="images_v2/go_check_online.png">
+            </a>
+        </div> -->
+        <div class="logo pngfix" style="display: none;">
+                <img src="images_v2/logo_-1.png">（去除本人已发表文献报告）
+        </div>
+        <div class="logo pngfix">
+             <img src="images_v2/new_img/logo_new1.png">
+        </div>
+    </div>
+</div>
+<!--topbg end-->
+<!--wrapper-->
+<div class="wrapper">
+    <!--wrapper_topbg-->
+    <div class="wrapper_topbg">
+        <!--xp 20150305 begin-->
+        <div class="type1" style="font-size: 13px;height: 14px;line-height: 41px;"></div>
+        <!--xp 20150305 end-->
+        <!--wrapper_con-->
+        <div class="wrapper_con">
+                <div class="zjk-tips"  style="display: none;"></div>
+
+
+            <!-- 头部导航切换 -->
+            <div class="top-nav-box">
+              <div class="top-nav">
+                  <div class="top-nav__tab top-nav__tab--left top-nav__tab-left--active">
+                      <div class="top-nav__tab-li">
+                          <img class="top-nav__tab-li-icon" src="images_v2/new_img/top_icon_left.png" />
+                          <span class="top-nav__title"><i>论文查重报告:</i> 检测是否抄袭</span>
+                      </div>
+                      <div class="top-nav__tab-li">
+                        相似度：<span class="top-nav__tab-li-num">10.4%</span>
+                      </div>
+                  </div>
+                  <div class="top-nav__tab top-nav__tab--right">
+                    <div class="top-nav__tab-li">
+                      <img class="top-nav__tab-li-icon top-nav__tab-li-icon-unlock" src="images_v2/new_img/top_icon_right.png" />
+                      <img class="top-nav__tab-li-icon top-nav__tab-li-icon-lock" src="images_v2/new_img/top_nav_lock_icon.png" />
+                      <span class="top-nav__title"><i>AIGC报告: </i> 检测是否由AI生成</span>
+                    </div>
+                    <div class="top-nav__tab-li top-nav__tab-li-unlock">
+                      疑似率：<span class="top-nav__tab-li-num"></span>
+                    </div>
+                    <div class="top-nav__tab-li top-nav__tab-li-lock">
+                      疑似率：
+                      <span class="top-nav__tab-li-lock-btn">
+                        <a class="top-nav__tab-li-lock-btn-a" href="https://www.paperyy.com/member_new/thesis/unlock?unlockType=3&taskId=5-06e0221e-6923-4a5c-92df-263960015767" target="_blank">解锁查看</a>
+                        <span class="top-nav__tab-li-lock-btn-tips">
+                          <img src="images_v2/new_img/top_lock_tip_icon.png" alt="">
+                          每天免费2篇
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!-- 头部导航切换 END -->
+
+            <div class="wrapper_conT"></div>
+            <div class="wrapper_con_content">
+                <!--TextInfo-->
+                <div class="TextInfo Mar">
+                    <div class="navbar">
+                        <ul class="fastBar">
+                        </ul>
+                    </div>
+                    <!--TextInfoCon-->
+                    <div class="TextInfoCon">
+                        <div class="TextTitle" style="width:129px;">文献基本信息</div>
+                        <!--TextInfoContent-->
+                        <div class="TextInfoContent">
+                            <div class="TextInfoContent_left">
+                                <ul>
+                                    <li><span class="lbt">检测文献：</span>基于动态图卷积与时空注意力的城市交通流量预测模型</li>
+                                    <li><span class="lbt">文献作者：</span></li>
+                                    <li><span class="lbt">报告时间：</span>2026-01-28 20:14:44</li>
+                                    <li><span class="lbt">段落个数：</span>2</li>
+                                    <li><span class="lbt">报告编号：</span>YY202601282014415167</li>
+                                </ul>
+                            </div>
+                            <div class="division_line"></div>
+                            <div class="TextInfoContent_right">
+                                <ul>
+                                    <li class="title">检测范围：</li>
+                                        <li>中国期刊库</li>
+                                        <li>中国图书库</li>
+                                        <li>硕士论文库</li>
+                                        <li>博士论文库</li>
+                                        <li>会议论文库</li>
+                                        <li>报纸库</li>
+                                        <li>中国专利库</li>
+                                        <li>中国标准库</li>
+                                        <li>百科库</li>
+                                        <li>网页库</li>
+                                        <li>中国共享库</li>
+                                        <li>工作总结</li>
+                                        <li>思想汇报</li>
+                                        <li>项目申报书</li>
+                                            <li class="gray">个人自建库</li>
+                                            <li class="gray">共享自建库</li>
+                                            <li class="gray">机构自建库</li>
+                                </ul>
+                            </div>
+                            <div class="seal">
+                                <div id="SealArea">
+                                    <div id="SealBg">
+                                        <img width="125" height="125" src="data:image/png;base64,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"/>
+                                    </div>
+                                    <div id="SealPercent"></div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--TextInfoContent end-->
+                    </div>
+                    <!--TextInfoCon end-->
+                </div>
+                <!--TextInfo end-->
+
+                    <div class="Recommend">
+                        <div class="TextTitle" style="width:112px;">推荐服务</div>
+                        <div class="ReportResult_T"></div>
+                        <div class="ReportResult_Con recommend_list">
+                            <a class="recommend_row recom-row recommend_width"
+                                href="https://www.paperyy.com/check-pay/reduce-pay-task/YY202601282014415167?sid=24"
+                                target="_blank">
+                                <div class="recommend-box-li">
+                                    <div class="recommend-box-li-left">
+                                        <img class="recommend-box-li-left__img" src="images_v2/new_img/sqjc_icon.png">
+                                        <span class="recommend-box-li-left__xbt"><i>双擎降重</i></span>
+                                        <span class="recommend-box-li-left__txt">：AIGC降重+学术论文降重</span>
+                                    </div>
+                                    <div class="recommend-box-li-right">
+                                        立即降重
+                                        <img class="recommend-box-li-right__img" src="images_v2/new_img/recommend_jt_icon.png">
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="recommend_row recom-row recommend_width"
+                                href="https://www.paperyy.com/check-pay/reduce-pay-task/YY202601282014415167?sid=25"
+                                target="_blank">
+                                <div class="recommend-box-li recommend-box-li-gg">
+                                    <div class="recommend-box-li-left">
+                                        <img class="recommend-box-li-left__img" src="images_v2/new_img/wxgg_icon.png">
+                                        <span class="recommend-box-li-left__xbt"><i>AI无限改稿</i></span>
+                                        <span class="recommend-box-li-left__txt">：不限次数对论文在线降重、润色等</span>
+                                    </div>
+                                    <div class="recommend-box-li-right">
+                                        立即改稿
+                                        <img class="recommend-box-li-right__img" src="images_v2/new_img/recommend_gg_icon.png">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="ReportResult_Bot"></div>
+                    </div>
+                    <div>
+                        <!--<div class="banner_0508"><a href="https://www.paperyy.com/reduce_repetition.aspx?reportnum=YY202601282014415167" target="_blank"></a></div>-->
+                            <a class="recommend-img" style="display: none;" href="https://www.paperyy.com/academic-check/index" onclick="getBuried('PC_xs_check_report_dinggao','share','index');" target="_blank">
+                                <div class="banner_0509 banner_0512">
+
+                                </div>
+                            </a>
+                    </div>
+                <!--ReportResult-->
+                <!-- 至尊版还是以前展示的内容，其它版本做调整 -->
+                    <div class="ReportResult Mar">
+                        <div class="TextTitle" style="width:129px;">检测报告结果</div>
+                        <div class="ReportResult_T"></div>
+                        <div class="ReportResult_Con">
+                            <!--ReportResult_Con1-->
+                            <div class="ReportResult_Con1_new">
+                                <ul>
+                                    <li>
+                                        <span class="color-red">总文字复制比：10.4%</span>
+                                    </li>
+                                    <li>
+                                        <span>去除引用文献复制比：</span><span class="color-red">10.4%</span>
+                                    </li>
+                                    <li>
+                                        <span>去除本人已发表文献复制比：</span><span class="color-red"> 10.4%</span>
+                                    </li>
+                                    <li>
+                                        <span>自建库复制比：</span><span class="color-red"> 0%</span>
+                                    </li>
+                                    <li class="result-word">
+                                        <p class="text-up">重复字数：1,028</p>
+                                        <p class="text-down">总字数：9,885</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--ReportResult_Con1 end-->
+                        </div>
+                        <div class="ReportResult_Bot"></div>
+                    </div>
+                <!--ReportResult end-->
+                <!--DetailReport-->
+                <div class="DetailReport Mar">
+                    <!--tab begin-->
+                    <div class="notice">
+                        <div class="repTabLink_0426">
+                                <ul>
+                                            <li><a href="全文标明引文报告.html" target="_blank">全文标明引文报告</a></li>
+                                            <li class="curr">去除本人已发表文献报告</li>
+                                            <li><a href="简洁报告.html" target="_blank">简洁报告</a></li>
+                                            <li><a href="全文对照报告.html" target="_blank">全文对照报告</a></li>
+                                </ul>
+                        </div>
+                        <div class="tab-bd">
+                            <div class="repTip_04261800">检测原文内容中<span class="red">红色字体</span>标记的为重复文字</div>
+                            <div class="tab-pal">
+                                <ul>
+                                    <!--xp 20150306 begin-->
+                                    <!--summary-->
+                                    <div class="summary">
+                                            <!--summary-->
+                                            <dl>
+                                                <dt>
+                                                    <span class="sumInfo">1.基于动态图卷积与时空注意力的城市交通流量预测模型_第1部分</span>
+                                                    <span class="sumTotal">总字数：7,320</span>
+                                                </dt>
+                                                <dd>
+                                                    文字复制比：12.7%（927）
+                                                </dd>
+                                            </dl>
+                                                <div class="simply_table">
+                                                    <table bordercolor="#fff" cellspacing="0" cellpadding="0"
+                                                           class="simp_table">
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">1</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=联盟链视角下基于ⅡWPSO-BP的信息安全风险预测模型"
+                                                                               target="_blank">联盟链视角下基于ⅡWPSO-BP的信息安全风险预测模型</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            周新民;罗文敏;刘俊杰;谢宝 -
+                                                                            《中国安全科学学报
+                                                                            》- 2022
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">6.2%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">2</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=面向6G的深度图像语义通信模型"
+                                                                               target="_blank">面向6G的深度图像语义通信模型</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            江沸菠;彭于波;董莉 -
+                                                                            《通信学报
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">3%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">3</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=一种局部时空图卷积方法及其在网络漏洞预测的应用"
+                                                                               target="_blank">一种局部时空图卷积方法及其在网络漏洞预测的应用</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            张珣;张楚童;艾孜孜·吐尔逊;郝蒙蒙;张迎春;江东 -
+                                                                            《科技导报
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">2.1%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">4</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=用于交通流预测的自适应图生成跳跃网络"
+                                                                               target="_blank">用于交通流预测的自适应图生成跳跃网络</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            黄靖[1];钟书远[1];文元桥[2];罗坤[1] -
+                                                                            《浙江大学学报:工学版
+                                                                            》- 2021
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">1.4%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">5</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于乌鸦搜索和蜻蜓算法融合与支持向量回归预测的能效虚拟机迁移"
+                                                                               target="_blank">基于乌鸦搜索和蜻蜓算法融合与支持向量回归预测的能效虚拟机迁移</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            许彪;高坤 -
+                                                                            《计算机应用与软件
+                                                                            》- 2022
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">1.4%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">6</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="https://www.doc88.com/p%2D9129921847322.html"
+                                                                               target="_blank">基于ResNet_BLSTM的端到端语音识别_胡章芳 - 道客巴巴</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                             -
+                                                                            《网页
+                                                                            》- 
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">1.2%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">7</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=多粒度信息关系增强的多标签文本分类"
+                                                                               target="_blank">多粒度信息关系增强的多标签文本分类</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            李芳芳;苏朴真;段俊文;张师超;毛星亮 -
+                                                                            《软件学报
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">1.1%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">8</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=程序设计类课程的课程思政研究与实践——以“程序设计竞赛基础”课程为例"
+                                                                               target="_blank">程序设计类课程的课程思政研究与实践——以“程序设计竞赛基础”课程为例</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            何典;赵珏;张胜;梁英 -
+                                                                            《教育教学论坛
+                                                                            》- 2022
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.9%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">9</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于Mask R-CNN的回环检测算法"
+                                                                               target="_blank">基于Mask R-CNN的回环检测算法</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            林钊浩;徐颖 -
+                                                                            《电子技术与软件工程
+                                                                            》- 2021
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.9%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">10</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于特征函数和联系数的系统故障模式识别"
+                                                                               target="_blank">基于特征函数和联系数的系统故障模式识别</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            崔铁军[1];李莎莎[2] -
+                                                                            《中国安全科学学报
+                                                                            》- 2021
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.8%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">11</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=面向大规模交通网络的时空关联挖掘方法"
+                                                                               target="_blank">面向大规模交通网络的时空关联挖掘方法</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            范晓亮;彭朝鹏;郑传潘;王程 -
+                                                                            《清华大学学报(自然科学版)
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.8%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">12</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://www.xjishu.com/zhuanli/55/201980043774.html"
+                                                                               target="_blank">行动优化装置、方法以及程序与流程</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                             -
+                                                                            《网页
+                                                                            》- 
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.7%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">13</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=一种基于时空稀疏注意力的时空图挖掘算法"
+                                                                               target="_blank">一种基于时空稀疏注意力的时空图挖掘算法</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            谢毅;王强;李海宏;金诚;任洪润;薛雯;熊贇 -
+                                                                            《计算机工程
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.6%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">14</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于分割注意力机制残差网络的城市区域客流量预测"
+                                                                               target="_blank">基于分割注意力机制残差网络的城市区域客流量预测</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            李伯涵;郭茂祖;赵玲玲 -
+                                                                            《智能系统学报
+                                                                            》- 2022
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.6%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">15</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=优先级k-中心问题的FPT近似算法"
+                                                                               target="_blank">优先级k-中心问题的FPT近似算法</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            冯启龙;龙睿;吴小良;仲文明 -
+                                                                            《中南大学学报(自然科学版)
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.6%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">16</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于BP神经网络的散装铁精矿液化风险评估模型"
+                                                                               target="_blank">基于BP神经网络的散装铁精矿液化风险评估模型</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            王海涛;简琦薇 -
+                                                                            《软件导刊
+                                                                            》- 2021
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.5%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">17</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于天气融合和LSTM网络的分布式光伏短期功率预测方法"
+                                                                               target="_blank">基于天气融合和LSTM网络的分布式光伏短期功率预测方法</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            李丰君;王磊;赵健;张建宾;张世尧;田杨阳 -
+                                                                            《中国电力
+                                                                            》- 2022
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">0.3%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <!--内容1 end-->
+                                                    </table>
+                                                </div>
+                                            <!--detail_table end-->
+                                            <div class="yuanwen_title">原文内容</div>
+                                            <div class="yuanwen">
+                                                <p>中文引用格式:周新民,余焕杰.基于动态图卷积与时空注意力的城市交通流量<em class='similar'>预测模型[J].中国安全科学学报,2026,3</em>?(?):?-?.</p><p>英文引用格式:ZHOU Xinmin,YU Huanjie. A traffic flow forecasting model for urban areas based on dynamic graph convolution and spatio-temporal attention[J].China Safety Science Journal,2026,3?(?):?-?.</p><p>基于动态图卷积与时空注意力的</p><p>城市交通流量预测模型</p><p>周新民1,2教授,余焕杰3</p><p>(1<em class='similar'>湖南工商大学人工智能与先进计算学院,湖南长沙410205;2湘江实验室,湖南长沙410205;</em></p><p>3<em class='similar'>湖南工商大学计算机学院,湖南长沙410205)</em></p><p><em class='similar'>文章编号:1003-3033(202?)00-0000-00;收稿日期:202?-00-00;修稿日期:202</em>?-00-00</p><p>中图分类号:X951文献标志码:A DOI:10.16265/j.cnki.issn 1003-3033.2026.00.000</p><p>基金项目:国家社会科学基金资助(21BGL231);湘江实验室重大项目(23XJ01001)。</p><p>*通信<em class='similar'>作者简介:周新民(1977&mdash;),男,湖南新邵人,博士,教授,博士生导师,主要从事新型智慧城市、商务智能与大数据、人工智能大模型等方面的研究。E-mail: zhouxinmin2699@163.com。</em></p><p>【摘要】为解决城市交通流量预测中时空耦合特征挖掘不充分、模型泛化能力不足的问题,提出一种动态图卷积与时空注意力融合的STMAT模型。该模型通过融合近期、周期、趋势多尺度时间特征与路网空间拓扑信息,构建双分支时空编码模块;设计动态图卷积增强模块,基于切比雪夫多项式近似降低计算复杂度,实现时空特征耦合提取;引入分层时空注意力模块,分时段捕捉空间异质性与时间周期性依赖;通过时空融合块融合静态路网与动态交通关联,并优化输入维度与超参数自适应机制。基于SZ_TAXI与PEMSD系列共5个数据集,与13个主流基线模型对比验证。结果表明,模型在4个数据集上的平均绝对误差(MAE)和平均绝对百分比误差(MAPE)均为最优,仅在PEMSD3数据集MAPE略逊于DSTAGNN 但 MAE 保持最优;消融实验证实各核心模块均能提升预测性能,可视化分析中预测值与真实流量拟合度高,证实模型可稳定捕捉日常波动与突发变化,有效提升复杂场景下交通流量预测的精度与适配性。</p><p>【关键词】动态图卷积;时空注意力;交通流量预测;时空特征提取;自适应优化</p><p>A traffic flow forecasting model for urban areas based on dynamic graph convolution and spatio-temporal attention</p><p>ZHOU Xinmin1,2, YU Huanjie3</p><p>(<em class='similar'>1 School of Artificial Intelligence and Advanced Computing, Hunan University of Technology and Business, Changsha 410205, Hunan, China;2 Xiangjiang Lab, Changsha 410205, Hunan, China;3 School of Computer Science, Hunan University of Technology and Business, Changsha 410205, Hunan, China)</em></p><p>Abstract: To address the problems of insufficient mining of spatio-temporal coupling characteristics and poor model generalization ability in urban traffic flow prediction, a spatio-temporal Multi-scale Attention model integrated with Dynamic Graph Convolution (STMAT) is proposed. This model constructs a dual-branch spatio-temporal encoding module by fusing multi-scale temporal features (including short-term, periodic, and trend components) with the spatial topology information of road networks, thereby capturing the multi-dimensional temporal patterns and inherent spatial correlations of traffic flow simultaneously.A dynamic graph convolution enhancement module is designed to reduce computational complexity based on Chebyshev polynomial approximation, which enables efficient and effective coupled extraction of spatio-temporal features by adaptively adjusting the graph structure according to real-time traffic changes. Additionally, a hierarchical spatio-temporal attention module is introduced to capture spatial heterogeneity and temporal periodic dependencies in different time periods, enhancing the model&#39;s ability to focus on key spatio-temporal regions and periodic patterns.A spatio-temporal fusion block is adopted to integrate static road network attributes and dynamic traffic correlations, and the input dimension and hyperparameter adaptive mechanism are optimized to improve the model&#39;s adaptability to different traffic scenarios. Validation experiments are conducted on 5 datasets from the SZ_TAXI and PEMSD series, with comparisons against 13 state-of-the-art baseline models.The experimental results indicate that the STMAT model achieves the optimal Mean Absolute Error (MAE) and Mean Absolute Percentage Error (MAPE) on 4 out of the 5 datasets. Only on the PEMSD3 dataset, its MAPE is slightly inferior to that of DSTAGNN, while the MAE still maintains the best performance. Ablation experiments confirm that each core module of the STMAT contributes significantly to improving the prediction performance. In visual analytics, the predicted values show a high fitting degree with the actual traffic flow, verifying that the model can stably capture daily traffic fluctuations and sudden changes. Overall, the proposed STMAT effectively enhances the accuracy and adaptability of traffic flow prediction in complex urban scenarios.</p><p>Keywords: dynamic graph convolution; spatio-temporal attention; traffic flow forecasting; spatio-temporal feature extraction; adaptive optimization</p><p>0引言</p><p>随着城市化进程加速与城市人口持续增长,道路交通承载压力日益凸显,不仅易引发大范围交通拥堵,更增加了交通事故的发生风险,严重影响城市运行效率与居民出行安全[1]。交通流量作为城市交通系统的核心表征,其精准预测是优化出行路线规划、缓解高峰拥堵、提升交通管理智能化水平的关键前提。城市交通流量具有显著的时空耦合特性、多尺度关联特征与动态演化规律,同时受天气、节假日、路网拓扑等多重因素影响,如何从海量时空数据中挖掘复杂特征并实现高精度预测,已成为智能交通领域亟待解决的核心问题。</p><p>目前,交通流量预测方法主要分为统计理论模型与深度学习模型两大类。传统统计模型如<em class='similar'>自回归积分移动平均模型(Autoregressive Integrated Moving Average Model,ARIMA)、向量自回归模型(Vector Autoregressive Model</em>,VAR)[2]等,虽能捕捉交通流量的中长期变化趋势,但对流量的随机性波动与时空动态关联性敏感不足,难以适配复杂交通场景[1]。<em class='similar'>随着深度学习技术的发展,卷积神经网络(Convolutional Neural Network,CNN)[3]、长短时记忆网络(Long Short-Term Memory,LSTM)</em>[4]等模型被广泛应用于交通预测,其中 CNN 擅长提取空间局部特征,LSTM 能够捕捉时序依赖关系。然而,单一模型难以同时充分挖掘交通流量的时空耦合特性,例如 CNN 难以处理长序列时间依赖,LSTM 对空间关联的捕捉能力有限。</p><p>近年来,学者们通过模型融合与结构改进提升预测性能,Zhang等[5<em class='similar'>]提出深度时空残差网络(Deep Spatio-Temporal Residual Network,ST-ResNet)</em>通过残差结构加深网络以强化空间特征提取;Zhang等[6]提出的图卷积<em class='similar'>网络(Graph Convolutional Network,GCN)及Li等[7]提出的动态图卷积循环网络(Dynamic Graph Convolutional Recurrent Network,</em>DCRNN)通过引入路网拓扑信息来捕捉空间关联;部分模型如周新民等[8]提出的注意力卷积长短时记忆残差(Attentive Convolutional LSTM Residual Network,ACLR)模型,通过引入注意力机制、残差结构或图增强模块,进一步优化时空特征提取能力。此外,针对时空依赖建模的精细化需求,Song等[9]<em class='similar'>提出的注意力时空图卷积网络(Attention Spatio-Temporal Graph Convolutional Network,ASTGCN)</em>,通过设计空间注意力与时间注意力双模块,精准聚焦关键时空区域以强化有效特征的捕捉。</p><p>但现有研究仍存在不足,部分模型忽略交通流量的多尺度时间异质性与空间异质性,静态图卷积难以适配路网动态关联变化,且部分模型存在输入维度固定、超参数适配性差等问题,导致泛化能力受限,难以兼容不同城市规模、时间粒度的交通数据集。</p><p>鉴于此,针对现有模型的局限性,本文充分挖掘交通流量的时空耦合特性、多尺度关联特性与动态演化规律,提出时空多尺度注意力图模型(Spatio-Temporal Multi-Scale Attention Graph Model,STMAT)。该模型通过融合多尺度时间特征与路网空间拓扑信息,构建双分支时空编码模块,集成动态图卷积与分层时空注意力机制,同时设计时空融合块实现静态路网与动态交通关联的深度融合,并通过输入维度与超参数自适应优化提升模型泛化能力。基于多个不同城市、时间粒度的数据集开展试验验证,以期提升复杂场景下交通流量预测的精度与适配性,为城市智能交通系统优化提供技术支撑。</p><p>1</p><p>基于STMAT模型的城市交通流量预测</p><p>充分挖掘城市道路交通流量的时空耦合特性、多尺度关联特性与动态演化规律,是提升复杂场景下流量预测精度与泛化能力的核心前提。STMAT 模型主要通过以下3个维度强化特征表达与预测性能:①针对交通流量在时间维度上的多尺度异质性,融合近期、周期、趋势三类时间特征,构建以多时间步长为索引的输入数据集;同时引入邻接矩阵的拉普拉斯标准化,精准捕获路网空间拓扑关联,实现时空特征的初步解构与对齐。②基于模块化设计思想,构建双分支时空编码模块,在模块内部集成动态邻接矩阵生成机制与时空注意力机制:通过长短期记忆LSTM层捕捉时序依赖,结合空间注意力与时间注意力动态加权特征权重,引入切比雪夫图卷积挖掘复杂空间关联,并以残差连接与层归一化缓解梯度消失,增强特征的深度提取与传递能力。③设计多尺度特征融合与输出解码单元,对不同时间尺度卷积层的输出进行自适应加权融合,同时耦合多时间尺度特征的全局关联,最终生成兼具局部精准性与全局一致性的交通流量<em class='similar'>预测结果。STMAT 预测模型框架如图1所示。</em></p><p>图1 STMAT预测模型框架</p><p>Fig.1 Framework of STMAT prediction model</p><p>1.1动态图卷积增强模块</p><p>针对大规模路网下静态图卷积计算复杂度高、无法适配动态时空关联的问题,本研究设计动态图卷积增强模块,核心思路是通过切比雪夫多项式近似图卷积,在降低计算复杂度的同时实现时空特征的耦合提取。</p><p>传统图卷积直接基于拉普拉斯矩阵计算,复杂度为(为路网节点数),当达到800以上时计算效率显著下降。为解决这一问题,模块采用阶切比雪夫多项式对标准化拉普拉斯矩阵进行近似,其递推关系为:</p><p>(1)</p><p>其中为单位矩阵,。</p><p>经近似后,图卷积的计算复杂度降至,本研究中取,在保证空间关联捕捉能力的同时,将计算量降低约两个数量级。</p><p>在此基础上,模块进一步将空间图卷积与时间卷积协同设计:首先通过爱因斯坦求和将输入特征与切比雪夫多项式序列融合,得到多阶空间特征;随后应用的时间卷积核,对空间特征进行局部时间卷积,提取时间维度的局部依赖,最终输出时空耦合特征,如图2所示。</p><p>这一设计可适配300s/900s不同时间粒度的交通数据,例如在SZ_TAXI数据集(900s粒度)中,时间卷积核可有效捕捉3个连续时间步的流量变化关联,而在PEMSD系列数据集(300s粒度)中则适配更精细的时间依赖,因此此设计加强了模型对多种数据集的适配性。</p><p>图2动态图卷积的时空耦合结构</p><p>Fig.2 Spatio-temporal coupling structure of dynamic graph convolution</p><p>1.2分层时空注意力模块</p><p>交通流的时空特征具有显著的时段异质性,具体表现为在平峰时段空间关联较弱且变化平缓,而在高峰时段空间关联强且波动剧烈;同时时间维度存在邻近性与周期性的双重依赖。针对这一特性,分层时空注意力模块采用双分支结构实现精准特征提取。</p><p>空间注意力子模块基于时段异质性设计分时段处理逻辑,将输入的60时间步特征划分为前48步(长时段,平峰/缓峰)与后12步(短时段,高峰),分别通过卷积降维得到特征分支与,再经爱因斯坦求和计算节点间的动态关联权重:</p><p>(2)</p><p>其中为爱因斯坦求和操作。为避免局部特征过载,权重经归一化后输出,如图3所示,确保不同时段的空间关联特征得到均衡捕捉。</p><p>时间注意力子模块则针对时间周期性设计区间掩码机制,构建的掩码矩阵:</p><p>(3)</p><p>该掩码仅允许同周期时间步(如昨日8时与今日8时)交互,如图4所示,黑色区域则为允许交互区间,以此强化时间邻近性与周期性特征。在此基础上,通过双卷积分支提取时间-节点特征,结合可学习参数矩阵计算注意力得分,经与掩码约束生成时间注意力权重,最终对特征进行加权增强。</p><p>图3空间注意力分时段处理流程图</p><p>Fig.3 Spatial attention time-Slice processing flowchart</p><p>图4时间注意力区间掩码矩阵热力图</p><p>Fig.4 Time attention interval mask matrix heatmap</p><p>1.3时空融合块</p><p>时空融合块是模型的核心计算单元,其设计目标是实现&quot;静态路网拓扑+动态交通关联&quot;的深度融合,并提升模型训练稳定性。</p><p>模块首先基于空间注意力权重生成动态邻接矩阵:以空间注意力权重为输入,通过LSTM学习路网关联的时序变化,得到动态邻接矩阵,随后将其与静态拉普拉斯矩阵加权融合:</p><p>(4)</p><p>其中为哈达玛积。这一融合策略既保留了路网的固有拓扑结构,又能适配不同时段的交通流动态变化,例如在早高峰时段,动态邻接矩阵会强化主要干道的节点关联,而静态拉普拉斯矩阵则维持路网的基础连接。</p><p>为缓解深层网络的梯度消失问题,模块引入门控与残差机制:将动态图卷积的输出拆分为特征过滤分支与门控分支,通过激活实现特征的选择性增强:</p><p>(5)</p><p>随后通过残差连接将模块初始输入与过滤后的特征相加:</p><p>(6)</p><p>最后经归一化处理,具体如图5所示,以达到适配多数据集的特征分布差异,提升模型泛化能力的目的。</p><p>图5时空融合块的完整结构</p><p>Fig.5 Complete Structure of the Spacetime Fusion Block</p><p>1.4模型适配与优化</p><p>为消除原始代码中硬编码对输入维度的限制,本研究从输入维度与超参数两方面进行适配优化。</p>
+                                            </div>
+                                            <!--summary-->
+                                            <dl>
+                                                <dt>
+                                                    <span class="sumInfo">2.基于动态图卷积与时空注意力的城市交通流量预测模型_第2部分</span>
+                                                    <span class="sumTotal">总字数：2,565</span>
+                                                </dt>
+                                                <dd>
+                                                    文字复制比：3.9%（101）
+                                                </dd>
+                                            </dl>
+                                                <div class="simply_table">
+                                                    <table bordercolor="#fff" cellspacing="0" cellpadding="0"
+                                                           class="simp_table">
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">1</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于梯度提升决策树的冷轧高强钢卷力学性能预测"
+                                                                               target="_blank">基于梯度提升决策树的冷轧高强钢卷力学性能预测</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            王伟;马乾伦;白振华;王子昂 -
+                                                                            《中国机械工程
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">3.4%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <!--内容1-->
+                                                            <tr>
+                                                                <td class="org_number">
+                                                                    <span class="listNu">2</span>
+                                                                </td>
+                                                                <td class="org_content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="http://xueshu.baidu.com/s?wd=基于融合Dropout与注意力机制的LSTM-GRU车辆轨迹预测"
+                                                                               target="_blank">基于融合Dropout与注意力机制的LSTM-GRU车辆轨迹预测</a>
+                                                                        </li>
+                                                                        <li class="decoration">
+                                                                            吴晓建;危一华;王爱春;雷耀;张瑞雪 -
+                                                                            《湖南大学学报(自然科学版)
+                                                                            》- 2023
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="org_line"></td>
+                                                                <td class="quote">
+                                                                    <ul class="quote_num">
+                                                                        <li class="shuzi">1.1%</li>
+                                                                        <li class="fenge_line"></li>
+                                                                        <li class="if_f">
+                                                                            是否引证：否
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="message_line">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <!--内容1 end-->
+                                                    </table>
+                                                </div>
+                                            <!--detail_table end-->
+                                            <div class="yuanwen_title">原文内容</div>
+                                            <div class="yuanwen">
+                                                <p>输入维度自适应方面,模块不再依赖固定的60时间步硬编码,而是基于配置文件动态解析时间步长度与时段划分规则,例如在SZ_TAXI数据集(900s粒度)中解析为60时间步,在PEMSD3数据集(300s粒度)中则根据配置调整为48时间步,同时通过卷积动态调整输入特征维度,兼容仅含流量特征或同时含流量、速度特征的数据集。</p><p>超参数自适应调整方面,针对不同数据集的点位数量与样本量,动态优化图卷积阶数与时间卷积核:例如在小规模数据集中取以减少计算量,在大规模数据集中取以保证空间关联捕捉能力;同时在注意力模块与图卷积模块中嵌入层,抑制<em class='similar'>过拟合,提升模型在跨场景下的泛化能力</em>。这些优化使得模型可适配不同城市规模、路网密度的交通场景,为多源数据集的统一预测提供了高效解决方案。</p><p>2预测模型试验与分析</p><p>2.1数据集信息及试验设置</p><p>试验所用的五个数据集如表1所示。所选用的数据集覆盖不同城市、时间粒度、区域规模与样本量,确保实验的全面性。</p><p>表1试验数据集信息</p><p>Table 1 Information of experimental datasets</p><table style='border-collapse:collapse;'><tr><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>数据集</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>时间间隔/s</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>区域/点位数量</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>可训练样本量</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>时间范围</td></tr><tr style='height:30.2pt; border-style:solid; border-width:0.75pt;'><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>SZ_TAXI[10]</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>900</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>156</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>2964</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>2015-01-01&mdash;
+2015-01-31</td></tr><tr style='height:30.2pt; border-style:solid; border-width:0.75pt;'><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>PEMSD3</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>300</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>358</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>26196</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>2018-09-01&mdash;
+2018-11-30</td></tr><tr style='height:30.2pt; border-style:solid; border-width:0.75pt;'><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>PEMSD4</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>300</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>307</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>16980</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>2018-01-01&mdash;
+2018-02-28</td></tr><tr style='height:30.2pt; border-style:solid; border-width:0.75pt;'><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>PEMSD7</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>300</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>883</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>28212</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>2017-05-01&mdash;
+2020-08-31</td></tr><tr style='height:15.6pt; border-style:solid; border-width:0.75pt;'><td style='width:52.9pt;  border-style:solid; border-width:0.75pt;'>PEMSD8</td><td style='width:41.25pt;  border-style:solid; border-width:0.75pt;'>300</td><td style='width:41.9pt;  border-style:solid; border-width:0.75pt;'>170</td><td style='width:40.9pt;  border-style:solid; border-width:0.75pt;'>17844</td><td style='width:64.0pt;  border-style:solid; border-width:0.75pt;'>2016-07-01&mdash;
+2016-08-31</td></tr></table><p>2.2数据预处理</p><p>试验所用数据集都处理成如表2所示的原子文件格式[11]。</p><p>表2数据集文件及内容</p><p>Table 2 Datasets files and contents</p><table style='border-collapse:collapse;'><tr><td style='width:43.95pt;  border-style:solid; border-width:0.75pt;'>文件</td><td style='width:69.45pt;  border-style:solid; border-width:0.75pt;'>内容</td><td style='width:126.15pt;  border-style:solid; border-width:0.75pt;'>示例</td></tr><tr><td style='width:43.95pt;  border-style:solid; border-width:0.75pt;'>.geo</td><td style='width:69.45pt;  border-style:solid; border-width:0.75pt;'>存储地理实体属性信息</td><td style='width:126.15pt;  border-style:solid; border-width:0.75pt;'>geo_id, type, coordinates</td></tr><tr><td style='width:43.95pt;  border-style:solid; border-width:0.75pt;'>.rel</td><td style='width:69.45pt;  border-style:solid; border-width:0.75pt;'>存储实体间的关系信息</td><td style='width:126.15pt;  border-style:solid; border-width:0.75pt;'>rel_id, type, origin_id, destination_id</td></tr><tr><td style='width:43.95pt;  border-style:solid; border-width:0.75pt;'>.dyna</td><td style='width:69.45pt;  border-style:solid; border-width:0.75pt;'>存储交通
+状态信息</td><td style='width:126.15pt;  border-style:solid; border-width:0.75pt;'>dyna_id, type, time, entity_id, location_id</td></tr><tr><td style='width:43.95pt;  border-style:solid; border-width:0.75pt;'>.json</td><td style='width:69.45pt;  border-style:solid; border-width:0.75pt;'>用于补充描述各表信息</td><td style='width:126.15pt;  border-style:solid; border-width:0.75pt;'>{&quot;geo&quot;: {&quot;including_types&quot;: [&quot;Point&quot;], &quot;Point&quot;: {}}}</td></tr></table><p>在数据清洗方面,对于超出合理流量范围的异常数据进行剔除,并采用邻域插值法填补缺失值。</p><p>在数据结构化方面,从dyna文件提取交通状态数据,转化为&quot;Batch×特征数×点位数量×时间步&quot;的时空矩阵;基于geo文件获取点位地理坐标,构建初始路网邻接矩阵;利用rel文件补充实体关联信息,优化邻接矩阵权重;</p><p>在数据标准化方面,采用Min-Max归一化处理流量数据,通过BatchNorm2d层消除特征量纲差异。</p><p>在数据集划分方面,统一按&quot;训练集:验证集:测试集=7:1:2&quot;划分,确保对比实验的公平性。</p><p>2.3评估指标定义</p><p>试验选取采用交通预测领域主流指标<em class='similar'>平均绝对误差损失(Mean Absolute Error,MAE)和平均绝对百分比误差(Mean Absolute Percentage Error,MAPE)作为模型评估指标</em>,确保结果可比性,其定义如下:</p><p>(7)</p><p>(8)</p><p>其中,为第个样本的真实值,为第个样本的预测值。</p><p>2.4试验结果分析</p><p>为了全面评估本文模型的预测性能,我们将其与13个主流基线模型展开对比,其中既包含历史平均模型(History Average,HA)、ARIMA、VAR等经典统计模型,也涵盖 FC-LSTM、DCRNN、GraphWaveNet 等深度学习基准模型,同时纳入了ASTGCN、MSTGCN、STSGCN 等近年来表现突出的时空融合预测模型。</p><p>试验中,输入特征维度设置为64,初始学习率设为0.001,batch-size为32,epoch设为100。各数据集上不同模型的MAE和MAPE值如表3所示。</p><p>由表可知,HA、ARIMA、VAR等经典统计模型在处理具有时空耦合特性的交通数据时,预测精度整体偏低,MAE与MAPE指标均显著高于深度学习类模型。进一步对比各模型的性能可以发现,本文模型在绝大多数数据集上展现出最优的预测效果:在SZ_TAXI、PEMSD4、PEMSD7、PEMSD8这4个数据集上,本文模型的MAE与MAPE指标均为所有模型中的最小值;仅在 PEMSD3数据集的 MAPE指标上略逊于 DSTAGNN,但该数据集上的MAE指标仍保持最优。</p><p>表3各数据集上不同模型的MAE和MAPE值</p><p>Table 3 MAE and MAPE values of different models on various datasets</p><table style='border-collapse:collapse;'><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td rowspan='2' style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>模型</td><td colspan='3' style='width:82.2pt;  border-style:solid; border-width:0.75pt;'>SZ_TAXI</td><td colspan='3' style='width:82.3pt;  border-style:solid; border-width:0.75pt;'>PEMSD3</td><td colspan='2' style='width:82.3pt;  border-style:solid; border-width:0.75pt;'>PEMSD4</td><td colspan='2' style='width:82.3pt;  border-style:solid; border-width:0.75pt;'>PEMSD7</td><td colspan='3' style='width:82.4pt;  border-style:solid; border-width:0.75pt;'>PEMSD8</td></tr><tr style='height:12.75pt; border-style:solid; border-width:0.75pt;'><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>MAE</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>MAPE/%</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>MAE</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>MAPE/%</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>MAE</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>MAPE/%</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>MAE</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>MAPE/%</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>MAE</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>MAPE/%</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>HA</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>8.77</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>12.5</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>31.58</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>33.78</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>38.03</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>27.88</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>45.12</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>24.51</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>34.86</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>27.88</td></tr><tr style='height:15.15pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>ARIMA</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>7.80</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>11.2</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>35.41</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>33.78</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>33.73</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>24.18</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>38.17</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>19.46</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>31.09</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>22.73</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>VAR</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>5.62</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>9.82</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>23.65</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>24.51</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>24.51</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>17.24</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>50.22</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>32.22</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>19.19</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>13.10</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>FC-LSTM</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>5.83</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>10.13</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>21.33</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>23.33</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>26.77</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>18.23</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>29.98</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>13.20</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>19.19</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>13.10</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>DCRNN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.98</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.64</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>17.99</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>18.34</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>21.22</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>14.17</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>25.22</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>11.82</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>17.86</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>11.45</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>GraphWaveNet</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>3.02</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.95</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>19.12</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>18.89</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>24.89</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>17.29</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>26.39</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>11.97</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>18.28</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>12.15</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>ASTGCN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>3.01</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.78</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>17.34</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>17.21</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>22.92</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>16.56</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>24.01</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>10.73</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>18.25</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>11.64</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>MSTGCN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.91</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.43</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>19.54</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>23.86</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>23.96</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>14.33</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>29</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>14.30</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>19.00</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>12.38</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>STSGCN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.96</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.26</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>17.48</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>16.78</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>21.19</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>13.90</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>24.26</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>10.21</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>17.13</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>10.96</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>STFGNN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.92</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>7.94</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>16.77</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>16.30</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>20.48</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>16.77</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>23.46</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>9.21</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>16.94</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>10.60</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>STSGRU</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.91</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>7.64</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>15.45</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>15.85</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>20.11</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>13.86</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>21.5</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>9.08</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>15.68</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>10.67</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>AGCRN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>3.06</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>7.43</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>15.98</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>15.23</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>19.83</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>12.97</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>22.37</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>9.12</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>15.95</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>10.09</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>DSTAGNN</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.85</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>6.98</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>15.57</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>14.68</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>19.30</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>12.70</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>21.42</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>9.01</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>15.67</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>9.94</td></tr><tr style='height:13.5pt; border-style:solid; border-width:0.75pt;'><td style='width:80.9pt;  border-style:solid; border-width:0.75pt;'>本文模型</td><td style='width:36.35pt;  border-style:solid; border-width:0.75pt;'>2.68</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>6.44</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>15.23</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>14.83</td><td colspan='2' style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>18.65</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>12.39</td><td style='width:36.45pt;  border-style:solid; border-width:0.75pt;'>20.56</td><td style='width:45.85pt;  border-style:solid; border-width:0.75pt;'>8.42</td><td style='width:36.5pt;  border-style:solid; border-width:0.75pt;'>14.71</td><td style='width:45.9pt;  border-style:solid; border-width:0.75pt;'>9.45</td></tr></table><p>2.5消融实验对比分析</p><p>为验证本文模型中各核心子模块对预测性能的贡献,设计4种变体消融模型,分别是①变体1:移除动态图卷积增强模块,仅保留基础图卷积操作;②变体2:移除分层空间注意力子模块,不再对空间关联特征进行差异化加权;③变体3:移除分层时间注意力子模块,取消对时间序列依赖关系的建模;④变体4:移除动态邻接矩阵生成模块,采用固定邻接矩阵进行图结构建模。</p><p>从图6左侧的消融实验结果可以看出,任意子模块的移除都会导致模型 MAE 与 MAPE 指标上升,预测性能出现不同程度的下降。其中,移除分层空间注意力子模块(变体2)与动态邻接矩阵生成模块(变体4)后,模型性能下滑最为显著,说明对空间关联特征的动态捕捉是提升预测精度的核心环节;动态图卷积增强模块(变体1)与分层时间注意力子模块(变体3)的移除也会造成性能损失,验证了各子模块的协同作用能够有效提升模型对时空耦合特征的表达能力。</p><p>2.6预测结果可视化分析</p><p>为进一步直观评估本文模型的预测效果,图6右侧在多个数据集上,随机抽取的节点样本在连续时间步内的真实流量值与预测值对比曲线。图中预测曲线与真实流量曲线拟合度较高,表明模型具备可靠的交通流预测能力,在不同规模的数据集上均展现出良好的泛化性能。但由于交通数据中存在随机噪声干扰,模型在局部流量突变的细节预测上仍存在一定误差,这也是后续研究中可优化的方向。</p><table style='border-collapse:collapse;'><tr style='height:127.55pt; border-style:solid; border-width:0.75pt;'><td style='width:49.35pt;  border-style:solid; border-width:0.75pt;'>SZ_TAXI</td><td style='width:221.1pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:231.45pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td></tr><tr style='height:127.55pt; border-style:solid; border-width:0.75pt;'><td style='width:49.35pt;  border-style:solid; border-width:0.75pt;'>PEMSD3</td><td style='width:221.1pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:231.45pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td></tr><tr style='height:127.55pt; border-style:solid; border-width:0.75pt;'><td style='width:49.35pt;  border-style:solid; border-width:0.75pt;'>PEMSD4</td><td style='width:221.1pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:231.45pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td></tr><tr style='height:155.55pt; border-style:solid; border-width:0.75pt;'><td style='width:49.35pt;  border-style:solid; border-width:0.75pt;'>PEMSD7</td><td style='width:221.1pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:231.45pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td></tr><tr style='height:127.55pt; border-style:solid; border-width:0.75pt;'><td style='width:49.35pt;  border-style:solid; border-width:0.75pt;'>PEMSD8</td><td style='width:221.1pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:231.45pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td></tr></table><p>图6消融实验结果(左)与预测结果可视化(右)</p><p>Fig.6 Visualization of ablation experiment results (left) and predicted outcomes (right)</p><p>3结论</p><p>1)模型采用三维度特征强化策略:融合多类时间特征并结合拉普拉斯标准化实现时空特征对齐,双分支时空编码模块强化深层特征提取,多尺度特征融合单元生成兼具局部精准性与全局一致性的预测结果。</p><p>2)核心子模块解决技术难题:动态图卷积增强模块降低计算复杂度并适配不同时间粒度数据,分层时空注意力模块精准捕捉时空异质性特征,时空融合块实现静态路网与动态交通关联的深度融合,输入与超参数自适应优化增强了模型泛化能力。</p><p>3)试验验证了模型优越性:在5个数据集上,STMAT模型的MAE与MAPE指标整体优于13个主流基线模型,4个数据集取得最优性能;消融试验证实各核心模块均对预测性能有显著贡献,可视化结果表明模型能稳定捕捉日常流量波动与突发变化。</p><p>4)模型存在一定局限性:受随机噪声影响,局部流量突变的细节预测仍有优化空间。未来将融合多源动态数据,优化噪声抑制与突变流量捕捉策略,探索与复杂路网信息的深度结合,进一步提升模型的实用价值。</p><p class='uncheck'>参 考 文 献</p><p class='uncheck'>周新民, 徐天, 李达，等. 基于自适应时空多头图注意力网络的交通流量预测模型[J]. 中国安全科学学报, 2025,35(11):149–156.</p><p class='uncheck'>ZHOU Xinmin, XU Tian, LI Da, et al. Traffic flow prediction model based on adaptive spatio-temporal multi-head graph attention network [J]. China Safety Science Journal, 2025, 35 (11):149-156.</p><p class='uncheck'>[2]CHANDRA S R, AL-DEEK H. Predictions of freeway traffic speeds and volumes using vector autoregressive models[J]. Journal of Intelligent Transportation Systems, 2009,13(2):53–72.</p><p class='uncheck'>[3]MA X, DAI Z, HE Z, et al. Learning traffic as images: A deep convolutional neural network for large-scale transportation network speed prediction[J]. sensors, 2017,17(4):818.</p><p class='uncheck'>[4]MA X, TAO Z, WANG Y, et al. Long short-term memory neural network for traffic speed prediction using remote microwave sensor data[J]. Transportation Research Part C: Emerging Technologies, 2015,54187–197.</p><p class='uncheck'>[5]ZHANG J, ZHENG Y, QI D. Deep spatio-temporal residual networks for citywide crowd flows prediction; proceedings of the Proceedings of the AAAI conference on artificial intelligence, F, 2017 [C].</p><p class='uncheck'>[6]ZHANG S, TONG H, XU J, et al. Graph convolutional networks: a comprehensive review[J]. Computational Social Networks, 2019,6(1):1–23.</p><p class='uncheck'>[7]LI F, FENG J, YAN H, et al. Dynamic graph convolutional recurrent network for traffic prediction: Benchmark and solution[J]. ACM Transactions on Knowledge Discovery from Data, 2023,17(1):1–21.</p><p class='uncheck'>[8]周新民, 金江涛, 鲍娜娜，等. 基于注意力卷积长短时记忆模型的城市出租车流量预测[J]. 中国安全科学学报, 2024,34(07):153–162.</p><p class='uncheck'>ZHOU Xinmin, JIN Jiangtao, BAO Nana, et al. Urban taxi traffic flow prediction based on attentive ConvLSTM-ResNet model[J]. China Safety Science Journal, 2024, 34(7):153-162.</p><p class='uncheck'>[9]GUO S, LIN Y, FENG N, et al. Attention based spatial-temporal graph convolutional networks for traffic flow forecasting; proceedings of the Proceedings of the AAAI conference on artificial intelligence, F, 2019 [C].</p><p class='uncheck'>[10]ZHAO L, SONG Y, ZHANG C, et al. T-GCN: A temporal graph convolutional network for traffic prediction[J]. IEEE transactions on intelligent transportation systems, 2019,21(9):3848–3858.</p><p class='uncheck'>[11]WANG J, JIANG J, JIANG W, et al. Libcity: An open library for traffic prediction; proceedings of the Proceedings of the 29th international conference on advances in geographic information systems, F, 2021 [C].</p><table style='border-collapse:collapse;'><tr><td style='width:80.8pt;  border-style:solid; border-width:0.75pt;'>&nbsp;</td><td style='width:411.9pt;  border-style:solid; border-width:0.75pt;'>作者简介：周新民（1977&mdash;），男，湖南新邵人，博士，教授，博士生导师，主要从事智慧交通、商务智能与大数据、AI大模型等方面的研究。E-mail:zhouxinmin2699@163.com。</td></tr></table>
+                                            </div>
+                                        <!--summary end-->
+                                        <!--xp 20150305 end-->
+                                    </div>
+                                    <!--summary end-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--tab end-->
+                </div>
+                <!--DetailReport end-->
+            </div>
+            <div class="wrapper_con_Bottom"></div>
+        </div>
+        <!--wrapper_con end-->
+    </div>
+    <!--wrapper_topbg end-->
+    <div class="copyright">版权所有 <a href="https://www.paperyy.com" target="_blank">www.paperyy.com</a></div>
+    <script type="text/javascript">
+        $(".recom-row").each(function () {
+            var href = $(this).attr("href");
+            $(this).attr("href", "https://" + domainUrl + href.substring(href.indexOf("/", href.indexOf("//") + 2)));
+        })
+        $(".top-nav__tab-li-lock-btn-a").each(function () {
+            var href = $(this).attr("href");
+            $(this).attr("href", "https://" + domainUrl + href.substring(href.indexOf("/", href.indexOf("//") + 2)));
+        })
+        $(".recommend-img").each(function () {
+            var href = $(this).attr("href");
+            $(this).attr("href", "https://" + domainUrl + href.substring(href.indexOf("/", href.indexOf("//") + 2)));
+        })
+	    $(".left_top_btn").each(function () {
+            var href = $(this).attr("href");
+            $(this).attr("href", "https://" + domainUrl + href.substring(href.indexOf("/", href.indexOf("//") + 2)));
+        })
+        var zjkTips = getZjkTipsStr();
+        $(function (){
+            resizeWidth();
+        });
+
+        function resizeWidth() {
+            if($(window).width() > 1515){
+                // showZjkTips();
+            }
+        }
+        var zjkTimer;
+        function showZjkTips(){
+            if(zjkTips) {
+                $(".zjk-tips").text(zjkTips);
+                $('.zjk-tips').show();
+                zjkTimer = setTimeout(function () {
+
+                    $('.zjk-tips').hide();
+                }, 5000);
+            }else{
+                $(".zjk-tips").hide();
+            }
+        }
+        function getZjkTipsStr(){
+            return '勾选自建库查重可极大提高查重精准度哦！'
+        }
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            if(!$('.recommend-img-boximg').length){
+                return
+            }
+            $.ajax({
+                type: "get",
+                url: "https://gateway.ixueshu.com/ad-server/1449266808139870210.jsonp",
+                dataType: 'jsonp',
+                async: false,
+                jsonp: 'jsonpCallback',
+                success: function(data) {
+                    var html = '';
+                    var reportnum = 'YY202601282014415167';
+                    var per = '40';
+                    for(var i=0;i<data.length;i++){
+                        html +=	'<li>'
+                        if(data[i].url){
+                            html += '<a class="recommend-img" href="'+data[i].url.replace("${reportnum!}",reportnum)+'" target="_blank">'
+                        }else{
+                            html += '<a class="recommend-img">'
+                        }
+                        html +=	'<div class="banner_0509" style="background: url('+data[i].image+')">'
+                        if(data[i].depict){
+
+                            html +=	''+data[i].depict.replace("${per}",per)+''
+                        }
+                        html +=	'</div>'
+                        html +=	'</a>'
+                        html +=	'</li>'
+                    }
+                    $('.recommend-img-boximg').html(html);
+                    if(data.length > 1){
+                        jQuery(".recommend-img-box").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"topLoop",autoPlay:true,interTime:6000,pnLoop:true});
+                    }
+                }
+            });
+
+        });
+    </script>
+</div>
+<script>
+    // 20220509
+  // $(function (){
+      //     var similarity = 0.104;
+      //     var actHref = "https://" + domainUrl + "/member_new/free?index=2";
+      //     var checkOnlineHref = "https://" + domainUrl + '/online_check/prepare_check/5-06e0221e-6923-4a5c-92df-263960015767';
+      //     // if(similarity <= 0.3){
+      //     //     $(".seal").css({
+      //     //         top: "44px"
+      //     //     }).append('<a style="margin-top: 45px;bottom: -45px;width: 116px;height: 32px;background: linear-gradient(270deg, #FF8C8C 0%, #D95E5E 100%);box-shadow: 0px 2px 8px 0px rgba(239, 93, 62, 0.3);border-radius: 8px;border: none;color: #FFFFFF;font-size: 14px;text-align: center;line-height: 32px;position: absolute;right: 4px;" href="'+actHref+'" target="_blank">晒重复率领红包</a>')
+      //     // }else{
+      //         $(".seal").css({
+      //             top: "44px"
+      //         }).append('<a style="margin-top: 45px;bottom: -45px;width: 116px;height: 32px;background: linear-gradient(270deg, #6B96FF 0%, #5D85E8 100%);box-shadow: 0px 2px 8px 1px rgba(46,105,242,0.3);border-radius: 8px;border: none;color: #FFFFFF;font-size: 14px;text-align: center;line-height: 32px;position: absolute;right: 4px;" href="'+checkOnlineHref+'" target="_blank"><img src="images_v2/check_online_icon1.png" style="margin-right:5px;" />在线改重</a>')
+      //     // }
+      // });
+    function goJC(e){
+        var newWindow = window.open();
+        try{
+            $.ajax({
+                url: "https://" + domainUrl + '/api/user-behavior/user-behavior-collect/3/12',
+                async:true,
+                data:{pageInfo:e}
+            })
+        }
+        catch(err){
+
+        }
+        newWindow.location.href= "https://" + domainUrl + '/check-pay/reduce-pay-task/YY202601282014415167'
+    }
+</script>
+<!--wrapper end-->
+</body>
+</html>
